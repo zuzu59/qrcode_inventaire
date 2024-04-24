@@ -1,3 +1,9 @@
+secrets.md
+cert.pem
+key.pem
+.DS_Store
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
