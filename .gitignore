@@ -1,7 +1,7 @@
 secrets.md
 cert.pem
 key.pem
-.DS_Store
+*.DS_Store
 
 
 # Byte-compiled / optimized / DLL files
