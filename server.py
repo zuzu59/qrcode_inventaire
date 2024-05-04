@@ -1,10 +1,11 @@
 #!/usr/bin/env python # [1]
 """\
 Petit script pour faire un petit serveur WEB https pour des tests de dev
-zf240424.1204
+zf240424.1204, zf240504.0856
 
 Installation:
-pip3 install flask flask_sslify ssl
+pip3 install --upgrade pip
+pip3 install flask flask_sslify
 openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -sha256 -nodes
 
 Usage: 
