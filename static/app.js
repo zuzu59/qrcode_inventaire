@@ -1,10 +1,23 @@
+// zf240504.1409
+
 const onScanSuccess = (decodedText) => {
   console.log(`QR code scanned successfully with value: ${decodedText}`);
   getRecordFromAPI(decodedText);
 };
 
 const getRecordFromAPI = async (id) => {
-  const url = 'https://app.nocodb.com/api/v2/tables/m26erao3ocx4gsj/records/' + id;
+
+//  const url = 'https://app.nocodb.com/api/v2/tables/m26erao3ocx4gsj/records/' + id;
+  const apiUrl = getApiUrlFromURL();
+  console.log('apiUrl: ' + apiUrl);
+
+  const url = apiUrl.replace('%2C30306%29', '%2C' + id + '%29');
+//  let url = encodeUrl(replaceUrl);
+  console.log('Url: ' + url);
+  console.log('toto1316');
+  
+  
+
   const token = getTokenFromURL();
   const headers = {
     'accept': 'application/json',
@@ -34,6 +47,36 @@ const getTokenFromURL = () => {
   const params = new URLSearchParams(window.location.search);
   return params.get('token');
   };
+
+
+
+
+const getApiUrlFromURL = () => {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('url');
+  };
+  
+  
+
+
+
+  function encodeUrl(url) {
+    let encodedUrl = '';
+    for (let i = 0; i < url.length; i++) {
+      let charCode = url.charCodeAt(i);
+      if (charCode === charCode.toString(16).length && charCode !== 0x20 && charCode !== 0x2D && charCode !== 0x2E && charCode !== 0x5F && charCode !== 0x7E && (charCode < 0x30 || charCode > 0x39) && (charCode < 0x41 || charCode > 0x5A) && (charCode < 0x61 || charCode > 0x7A)) {
+        encodedUrl += '%' + charCode.toString(16).toUpperCase();
+      } else {
+        encodedUrl += url[i];
+      }
+    }
+    return encodedUrl;
+  }
+
+
+
+
+
 
 Html5Qrcode.getCameras()
   .then((devices) => {
