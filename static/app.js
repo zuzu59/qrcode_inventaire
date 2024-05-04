@@ -1,4 +1,4 @@
-// zf240504.1409
+// zf240504.1434
 
 const onScanSuccess = (decodedText) => {
   console.log(`QR code scanned successfully with value: ${decodedText}`);
@@ -8,8 +8,10 @@ const onScanSuccess = (decodedText) => {
 const getRecordFromAPI = async (id) => {
 
 //  const url = 'https://app.nocodb.com/api/v2/tables/m26erao3ocx4gsj/records/' + id;
-  const apiUrl = getApiUrlFromURL();
-  console.log('apiUrl: ' + apiUrl);
+//  const apiUrl = getApiUrlFromURL();
+const server = getServerFromURL();
+  const apiUrl = server + "/" + 'api/v2/tables/m8mwhjo08d8tm72/records?viewId=vwze386pg0uaq45k&where=%28Index%2Ceq%2C30306%29&limit=25&shuffle=0&offset=0';
+//  console.log('apiUrl: ' + apiUrl);
 
   const url = apiUrl.replace('%2C30306%29', '%2C' + id + '%29');
 //  let url = encodeUrl(replaceUrl);
@@ -27,21 +29,34 @@ const getRecordFromAPI = async (id) => {
   try {
     const response = await axios.get(url, { headers });
     displayRecord(response.data);
+    console.log(response.data);
+
   } catch (error) {
     console.error(error);
   }
 };
 
+
+
 const displayRecord = (record) => {
   const resultDiv = document.getElementById('result');
   resultDiv.innerHTML = '';
 
-  for (const [key, value] of Object.entries(record)) {
-    const paragraph = document.createElement('p');
-    paragraph.textContent = `${key}: ${value}`;
-    resultDiv.appendChild(paragraph);
+  const list = record.list; // extrait la liste du JSON
+
+  for (const item of list) { // parcourt chaque élément de la liste
+    for (const [key, value] of Object.entries(item)) { // parcourt chaque clé-valeur de l'élément
+      const paragraph = document.createElement('p');
+      paragraph.textContent = `${key}: ${value}`;
+      resultDiv.appendChild(paragraph);
+    }
   }
 };
+
+
+
+
+
 
 const getTokenFromURL = () => {
   const params = new URLSearchParams(window.location.search);
@@ -51,9 +66,9 @@ const getTokenFromURL = () => {
 
 
 
-const getApiUrlFromURL = () => {
+const getServerFromURL = () => {
   const params = new URLSearchParams(window.location.search);
-  return params.get('url');
+  return params.get('server');
   };
   
   
