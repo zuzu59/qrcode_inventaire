@@ -1,4 +1,4 @@
-// zf240504.1434
+// zf240504.1457
 
 const onScanSuccess = (decodedText) => {
   console.log(`QR code scanned successfully with value: ${decodedText}`);
@@ -6,19 +6,11 @@ const onScanSuccess = (decodedText) => {
 };
 
 const getRecordFromAPI = async (id) => {
-
-//  const url = 'https://app.nocodb.com/api/v2/tables/m26erao3ocx4gsj/records/' + id;
-//  const apiUrl = getApiUrlFromURL();
-const server = getServerFromURL();
-  const apiUrl = server + "/" + 'api/v2/tables/m8mwhjo08d8tm72/records?viewId=vwze386pg0uaq45k&where=%28Index%2Ceq%2C30306%29&limit=25&shuffle=0&offset=0';
-//  console.log('apiUrl: ' + apiUrl);
-
-  const url = apiUrl.replace('%2C30306%29', '%2C' + id + '%29');
-//  let url = encodeUrl(replaceUrl);
+  const server = getServerFromURL();
+  const apiUrl = 'https://' + server + '/' + 'api/v2/tables/m8mwhjo08d8tm72/records?viewId=vwze386pg0uaq45k&where=%28Index%2Ceq%2Cxxxx%29&limit=25&shuffle=0&offset=0';
+  const url = apiUrl.replace('%2Cxxxx%29', '%2C' + id + '%29');
   console.log('Url: ' + url);
   console.log('toto1316');
-  
-  
 
   const token = getTokenFromURL();
   const headers = {
@@ -37,7 +29,6 @@ const server = getServerFromURL();
 };
 
 
-
 const displayRecord = (record) => {
   const resultDiv = document.getElementById('result');
   resultDiv.innerHTML = '';
@@ -54,16 +45,10 @@ const displayRecord = (record) => {
 };
 
 
-
-
-
-
 const getTokenFromURL = () => {
   const params = new URLSearchParams(window.location.search);
   return params.get('token');
   };
-
-
 
 
 const getServerFromURL = () => {
@@ -71,27 +56,6 @@ const getServerFromURL = () => {
   return params.get('server');
   };
   
-  
-
-
-
-  function encodeUrl(url) {
-    let encodedUrl = '';
-    for (let i = 0; i < url.length; i++) {
-      let charCode = url.charCodeAt(i);
-      if (charCode === charCode.toString(16).length && charCode !== 0x20 && charCode !== 0x2D && charCode !== 0x2E && charCode !== 0x5F && charCode !== 0x7E && (charCode < 0x30 || charCode > 0x39) && (charCode < 0x41 || charCode > 0x5A) && (charCode < 0x61 || charCode > 0x7A)) {
-        encodedUrl += '%' + charCode.toString(16).toUpperCase();
-      } else {
-        encodedUrl += url[i];
-      }
-    }
-    return encodedUrl;
-  }
-
-
-
-
-
 
 Html5Qrcode.getCameras()
   .then((devices) => {

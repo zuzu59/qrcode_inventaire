@@ -1,7 +1,7 @@
 # qrcode_inventaire
 Juste une petite appli pour lire un qrcode avec son smartphone et aller chercher l'information dans une DB Nocodb via API REST
 
-zf240424.1417
+zf240424.1417, zf240504.1457
 
 
 ## Buts
@@ -30,7 +30,12 @@ On utilise la solution d'une petite application *mobile web app* en HTML5 auto h
 
 
 ### Utilisation
-*Encore en cours de rédaction, mais de la documentation se trouve déjà dans les codes !*
+On y accède par une URL de ce type:
+
+````
+https://<adrs ip de ce serveur>:8443/?server=<adrs ip du serveur NocoDB>&token=<token xcToken>
+````
+
 
 #### Backend
 
