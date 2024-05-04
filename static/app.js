@@ -1,4 +1,9 @@
-// zf240504.1457
+// lit un qrcode avec la caméra et va chercher sur NocoDB les infos du fromage
+//
+// zf240504.1510
+//
+// pour tester vite fait un bout de code JS: https://playcode.io/javascript
+
 
 const onScanSuccess = (decodedText) => {
   console.log(`QR code scanned successfully with value: ${decodedText}`);
