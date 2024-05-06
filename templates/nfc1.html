@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>RFID Reader</title>
+</head>
+<body>
+  <h1>RFID Reader 1125</h1>
+  <p id="message"></p>
+  <script>
+    function onMessageReceived(event) {
+      const ndefMessage = event.message;
+      const ndefRecord = ndefMessage.records[0];
+      const uid = ndefRecord.payload.slice(1).toString('hex');
+      document.getElementById('message').textContent = 'UID : ' + uid;
+    }
+
+    function onError(error) {
+      document.getElementById('message').textContent = 'Erreur : ' + error;
+    }
+
+    if ('nfc' in navigator) {
+      navigator.nfc.addEventListener('message', onMessageReceived);
+      navigator.nfc.addEventListener('error', onError);
+
+      navigator.nfc.watch({
+        signalPresence: true,
+        signalLost: true,
+        isPassive: false,
+        techFilters: ['iso14443-3a']
+      });
+    } else {
+      document.getElementById('message').textContent = 'NFC non pris en charge';
+    }
+  </script>
+</body>
+</html>
